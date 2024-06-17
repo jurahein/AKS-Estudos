@@ -12,5 +12,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
   identity {
     type = "SystemAssigned"
   }
+  
+  network_profile {
+    network_plugin     = "azure"
+    load_balancer_sku  = "standard"
+    outbound_type      = "loadBalancer"
+  }
 
 }
+

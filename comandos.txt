@@ -1,0 +1,15 @@
+#Subindo Imagem Container Registry#
+Startar o Dokce Desktop
+az acr login --name acrjuraciestudos
+docker build -t minha-pagina-estatica .
+docker tag minha-pagina-estatica acrjuraciestudos.azurecr.io/minha-pagina-estatica:latest
+docker push acrjuraciestudos.azurecr.io/minha-pagina-estatica:latest
+
+#Aplicando os manifestos no AKS#
+az aks get-credentials --resource-group RG-AKS-JURACI --name aks-juraci-estudos --overwrite-existing
+az aks update -g  RG-AKS-JURACI -n aks-juraci-estudos --api-server-authorized-ip-ranges 200.170.101.136/32
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+
+kubectl logs nginx-app-deployment-6d655ddd4f-978bm
+kubectl logs <nome-do-pod> -c <nome-do-container>

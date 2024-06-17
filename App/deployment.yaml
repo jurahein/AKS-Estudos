@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pagina-estatica-deployment
+  labels:
+    app: nginx-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-app
+  template:
+    metadata:
+      labels:
+        app: nginx-app
+    spec:
+      containers:
+      - name: nginx-app
+        image: acrjuraciestudos.azurecr.io/minha-pagina-estatica:latest
+        ports:
+        - containerPort: 80
